@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "enabled": true,
+  "name": "Architecture Guardian",
+  "description": "Validate that all generated code follows the layered architecture defined in structure.md and maintains a clear separation of responsibilities.",
+  "when": {
+    "type": "promptSubmit"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Before generating or modifying code, review the project's structure.md steering and ensure that the layered architecture is respected.\n\nValidate the following rules:\n\n- API routes are only responsible for handling HTTP requests and responses.\n- Business logic must exist exclusively inside the services layer.\n- Database access must only occur through repositories.\n- SQLAlchemy models belong only in the models package.\n- Pydantic schemas belong only in the schemas package.\n- Configuration and shared utilities belong in the core package.\n- Avoid mixing responsibilities across layers.\n- If the requested implementation violates the architecture, explain why and propose an alternative that follows the project's structure.\n\nAlways prioritize maintainability, separation of concerns and scalability over short implementations."
+  }
+}
