@@ -29,6 +29,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Show dependency versions
+        run: |
+          python --version
+          pip show fastapi starlette httpx httpx2 || true
+
       - name: Run tests
         run: |
           pytest
