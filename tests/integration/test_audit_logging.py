@@ -21,7 +21,6 @@ from app.repositories.room_repository import RoomRepository
 from app.schemas.room import RoomCreate, RoomUpdate
 from app.services.room_service import RoomService
 
-
 # Sensitive data patterns that must NEVER appear in audit logs
 SENSITIVE_KEYWORDS = [
     "token",

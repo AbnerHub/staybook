@@ -6,8 +6,7 @@ Validates Requirements 10.1 and 10.2:
 """
 
 import logging
-from unittest.mock import patch
-from datetime import datetime, timezone
+from datetime import datetime
 
 from app.core.logging import audit_log
 

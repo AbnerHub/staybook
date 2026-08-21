@@ -1,6 +1,7 @@
 import enum
 
-from sqlalchemy import Column, Integer, Numeric, String, DateTime, Enum as SAEnum
+from sqlalchemy import Column, DateTime, Integer, Numeric, String
+from sqlalchemy import Enum as SAEnum
 from sqlalchemy.sql import func
 
 from app.db.base import Base

@@ -1,0 +1,8 @@
+[tool.ruff]
+target-version = "py313"
+
+[tool.ruff.lint]
+ignore = [
+    "B008",   # FastAPI uses Depends() in function defaults intentionally
+    "BLE001", # Audit logging intentionally catches logging failures
+]

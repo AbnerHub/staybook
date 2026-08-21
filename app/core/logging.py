@@ -5,7 +5,7 @@ operations on rooms. Never logs tokens, passwords, or PII.
 """
 
 import logging
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 logger = logging.getLogger("staybook.audit")
 
@@ -27,7 +27,7 @@ def audit_log(
     logger.info(
         "audit_event",
         extra={
-            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "timestamp": datetime.now(UTC).isoformat(),
             "operation": operation,
             "room_id": room_id,
             "result": result,

@@ -1,6 +1,6 @@
 """Unit tests for app.core.auth module."""
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 import pytest
 from fastapi import HTTPException
@@ -52,7 +52,7 @@ class TestGetCurrentUser:
         payload = {
             "sub": "user789",
             "role": "admin",
-            "exp": datetime.now(timezone.utc) - timedelta(hours=1),
+            "exp": datetime.now(UTC) - timedelta(hours=1),
         }
         token = _make_token(payload)
         credentials = _make_credentials(token)

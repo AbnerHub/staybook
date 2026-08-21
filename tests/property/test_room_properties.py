@@ -40,7 +40,6 @@ from app.repositories.room_repository import RoomRepository
 from app.schemas.room import RoomCreate, RoomUpdate
 from app.services.room_service import RoomService
 
-
 # --- Strategies ---
 
 valid_room_number = st.text(

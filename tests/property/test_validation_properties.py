@@ -18,7 +18,6 @@ from pydantic import ValidationError
 from app.models.room import RoomStatus, RoomType
 from app.schemas.room import RoomCreate
 
-
 # --- Strategies ---
 
 valid_room_number = st.text(
