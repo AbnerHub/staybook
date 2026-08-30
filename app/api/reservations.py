@@ -14,6 +14,7 @@ from app.schemas.reservation import (
     ReservationUpdate,
 )
 from app.services.reservation_service import ReservationService
+from app.services.stay_service import StayService
 
 router = APIRouter(prefix="/api/v1/reservations", tags=["reservations"])
 
@@ -24,6 +25,15 @@ def _get_service(db: Session = Depends(get_db)) -> ReservationService:
         repository=ReservationRepository(db),
         room_repository=RoomRepository(db),
         guest_repository=GuestRepository(db),
+    )
+
+
+def _get_stay_service(db: Session = Depends(get_db)) -> StayService:
+    """Build the stay service sharing the same Session across both repositories."""
+    return StayService(
+        session=db,
+        reservation_repository=ReservationRepository(db),
+        room_repository=RoomRepository(db),
     )
 
 
@@ -81,4 +91,26 @@ def cancel_reservation(
 ) -> ReservationResponse:
     """Cancelar una reserva (cambio de estado, sin borrado físico)."""
     reservation = service.cancel_reservation(reservation_id)
+    return ReservationResponse.model_validate(reservation)
+
+
+@router.post("/{reservation_id}/check-in", response_model=ReservationResponse)
+def check_in_reservation(
+    reservation_id: int,
+    current_user: dict = Depends(get_current_admin_user),
+    service: StayService = Depends(_get_stay_service),
+) -> ReservationResponse:
+    """Registrar el check-in de una reserva confirmada."""
+    reservation = service.check_in(reservation_id)
+    return ReservationResponse.model_validate(reservation)
+
+
+@router.post("/{reservation_id}/check-out", response_model=ReservationResponse)
+def check_out_reservation(
+    reservation_id: int,
+    current_user: dict = Depends(get_current_admin_user),
+    service: StayService = Depends(_get_stay_service),
+) -> ReservationResponse:
+    """Registrar el check-out de una reserva con check-in realizado."""
+    reservation = service.check_out(reservation_id)
     return ReservationResponse.model_validate(reservation)

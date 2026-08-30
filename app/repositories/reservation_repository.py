@@ -46,14 +46,22 @@ class ReservationRepository:
         Regla de solapamiento (intervalo semiabierto):
             existing.check_in_date < check_out AND existing.check_out_date > check_in
 
-        Solo participan reservas con status 'confirmed'. Si se provee
-        exclude_id, esa reserva se excluye del resultado (auto-exclusión
-        durante la actualización).
+        Participan las reservas activas, es decir con status 'confirmed' o
+        'checked_in'. Las reservas 'cancelled' y 'checked_out' se excluyen. Si
+        se provee exclude_id, esa reserva se excluye del resultado
+        (auto-exclusión durante la actualización).
         """
         query = (
             self.db.query(Reservation)
             .filter(Reservation.room_id == room_id)
-            .filter(Reservation.status == ReservationStatus.CONFIRMED)
+            .filter(
+                Reservation.status.in_(
+                    [
+                        ReservationStatus.CONFIRMED,
+                        ReservationStatus.CHECKED_IN,
+                    ]
+                )
+            )
             .filter(Reservation.check_in_date < check_out)
             .filter(Reservation.check_out_date > check_in)
         )

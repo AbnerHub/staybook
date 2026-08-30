@@ -114,3 +114,20 @@ class ReservationAlreadyCancelledException(AppException):
             detail="La reserva ya se encuentra cancelada",
             status_code=409,
         )
+
+
+class ReservationInvalidTransitionException(AppException):
+    """Excepción lanzada cuando la transición de estado de la reserva no es válida."""
+
+    def __init__(self):
+        super().__init__(
+            detail="La transición de estado de la reserva no es válida",
+            status_code=409,
+        )
+
+
+class CheckInDateNotAllowedException(AppException):
+    """Excepción lanzada cuando el check-in no está permitido en la fecha actual."""
+
+    def __init__(self, detail: str = "El check-in no está permitido en esta fecha"):
+        super().__init__(detail=detail, status_code=409)
