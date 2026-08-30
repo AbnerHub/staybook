@@ -151,3 +151,27 @@ class TestGetActiveOverlapping:
             exclude_id=r.id,
         )
         assert result == []
+
+    def test_checked_in_blocks(self, repository, db_session):
+        """A checked_in reservation is active and must block overlaps."""
+        self._seed(
+            repository, db_session,
+            check_in_date=date(2026, 9, 1), check_out_date=date(2026, 9, 5),
+            status=ReservationStatus.CHECKED_IN,
+        )
+        result = repository.get_active_overlapping(
+            room_id=1, check_in=date(2026, 9, 2), check_out=date(2026, 9, 4)
+        )
+        assert len(result) == 1
+
+    def test_checked_out_excluded(self, repository, db_session):
+        """A checked_out reservation is not active and must not block overlaps."""
+        self._seed(
+            repository, db_session,
+            check_in_date=date(2026, 9, 1), check_out_date=date(2026, 9, 5),
+            status=ReservationStatus.CHECKED_OUT,
+        )
+        result = repository.get_active_overlapping(
+            room_id=1, check_in=date(2026, 9, 2), check_out=date(2026, 9, 4)
+        )
+        assert result == []
