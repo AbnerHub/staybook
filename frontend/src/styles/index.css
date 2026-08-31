@@ -1,0 +1,143 @@
+/*
+ * index.css — base global de estilos del frontend de StayBook.
+ *
+ * Contiene:
+ * - Un reset mínimo (box-sizing, márgenes, medios responsivos).
+ * - Variables CSS (custom properties) para colores, espaciado y tipografía.
+ * - Tipografía base y estilos de elementos comunes.
+ *
+ * Importa layout.css al final para que un único `import "./styles/index.css"`
+ * en main.jsx (tarea 6.3) arrastre también los estilos de layout.
+ *
+ * Sin frameworks de UI (Req 11: solo CSS plano + variables compartidas).
+ */
+
+/* Importa los estilos de layout primero: las reglas @import deben preceder    */
+/* a cualquier otra regla CSS. Un único import en main.jsx trae ambos.         */
+@import "./layout.css";
+
+/* -------------------------------------------------------------------------- */
+/* Variables (Req 11.3: consistencia visual mediante variables compartidas)   */
+/* -------------------------------------------------------------------------- */
+:root {
+  /* Colores */
+  --color-bg: #f4f5f7;
+  --color-surface: #ffffff;
+  --color-border: #e2e5ea;
+  --color-text: #1f2733;
+  --color-text-muted: #5b6472;
+  --color-primary: #2f6fed;
+  --color-primary-contrast: #ffffff;
+  --color-sidebar-bg: #1f2733;
+  --color-sidebar-text: #cfd6e0;
+  --color-sidebar-active-bg: #2f6fed;
+  --color-sidebar-active-text: #ffffff;
+  --color-header-bg: #ffffff;
+  --color-error-bg: #fdecea;
+  --color-error-border: #f5c2bd;
+  --color-error-text: #b3261e;
+
+  /* Espaciado */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+
+  /* Tipografía */
+  --font-family-base: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+  --font-size-base: 16px;
+  --font-size-sm: 14px;
+  --font-size-lg: 20px;
+  --font-size-xl: 28px;
+  --line-height-base: 1.5;
+
+  /* Layout */
+  --sidebar-width: 220px;
+  --header-height: 56px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Reset mínimo                                                               */
+/* -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+picture,
+svg,
+video {
+  max-width: 100%;
+  display: block;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Tipografía base                                                            */
+/* -------------------------------------------------------------------------- */
+h1,
+h2,
+h3,
+h4 {
+  margin: 0 0 var(--space-md);
+  line-height: 1.25;
+  font-weight: 600;
+}
+
+h1 {
+  font-size: var(--font-size-xl);
+}
+
+h2 {
+  font-size: var(--font-size-lg);
+}
+
+p {
+  margin: 0 0 var(--space-md);
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}

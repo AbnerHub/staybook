@@ -1,0 +1,158 @@
+/*
+ * layout.css — estilos del chrome administrativo de StayBook.
+ *
+ * Cubre AdminLayout, Header, Sidebar, el estado activo de NavLink y una
+ * media query de degradación básica para anchos reducidos (Req 11.1–11.4).
+ *
+ * Depende de las variables definidas en index.css (que importa este archivo).
+ * Enfoque desktop-first sin framework de UI; solo Flexbox + una @media query.
+ *
+ * Clases coordinadas con los componentes:
+ * - AdminLayout: .admin-layout, .admin-layout__body,
+ *                .admin-layout__sidebar, .admin-layout__content
+ * - Header:      .app-header (alias .admin-layout__header),
+ *                .header__title, .header__session
+ * - Sidebar:     .admin-layout__sidebar, .sidebar__list, .sidebar__item,
+ *                .sidebar__link, .sidebar__link--active
+ */
+
+/* -------------------------------------------------------------------------- */
+/* AdminLayout (Req 11.1: header + sidebar + área de contenido)               */
+/* -------------------------------------------------------------------------- */
+.admin-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.admin-layout__body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.admin-layout__content {
+  flex: 1;
+  min-width: 0;
+  padding: var(--space-lg);
+  background-color: var(--color-bg);
+  overflow: auto;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Header                                                                     */
+/* -------------------------------------------------------------------------- */
+.app-header,
+.admin-layout__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-height);
+  padding: 0 var(--space-lg);
+  background-color: var(--color-header-bg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.header__title {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.header__session {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  color: var(--color-text-muted);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Sidebar (Req 11.2: navegación lateral legible)                             */
+/* -------------------------------------------------------------------------- */
+.admin-layout__sidebar {
+  flex: 0 0 var(--sidebar-width);
+  width: var(--sidebar-width);
+  padding: var(--space-md) var(--space-sm);
+  background-color: var(--color-sidebar-bg);
+  color: var(--color-sidebar-text);
+}
+
+.sidebar__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.sidebar__link {
+  display: block;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+  color: var(--color-sidebar-text);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.sidebar__link:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: var(--color-sidebar-active-text);
+  text-decoration: none;
+}
+
+/* Estado activo del NavLink (Req 11.4: indicar la sección actual) */
+.sidebar__link--active {
+  background-color: var(--color-sidebar-active-bg);
+  color: var(--color-sidebar-active-text);
+  font-weight: 600;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Degradación responsiva básica (Req 11: no romper el contenido)             */
+/* En anchos reducidos el sidebar deja de ser una columna fija y se apila     */
+/* arriba del contenido con los enlaces en fila envolvente.                   */
+/* -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .admin-layout__body {
+    flex-direction: column;
+  }
+
+  .admin-layout__sidebar {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+
+  .sidebar__list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+
+  .admin-layout__content {
+    padding: var(--space-md);
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Indicador de conectividad (demostración de foundation en DashboardPage)    */
+/* Solo presentación; se reemplazará por contenido real en una spec futura.   */
+/* -------------------------------------------------------------------------- */
+.connectivity-badge {
+  display: inline-block;
+  padding: var(--space-xs) var(--space-sm);
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+}
+
+.connectivity-badge--ok {
+  background-color: #e6f4ea;
+  border-color: #b7e0c4;
+  color: #1e7e46;
+}
+
+.connectivity-badge--fail {
+  background-color: var(--color-error-bg);
+  border-color: var(--color-error-border);
+  color: var(--color-error-text);
+}
