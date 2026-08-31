@@ -40,6 +40,26 @@ class RoomRepository:
             .all()
         )
 
+    def count_all(self) -> int:
+        """Contar todas las habitaciones (consulta agregada, sin cargar filas)."""
+        return self.db.query(Room).count()
+
+    def count_by_status(self, status: RoomStatus) -> int:
+        """Contar habitaciones con un estado operativo dado."""
+        return self.db.query(Room).filter(Room.status == status).count()
+
+    def get_by_status(self, status: RoomStatus) -> list[Room]:
+        """Retornar habitaciones con un estado operativo dado."""
+        return self.db.query(Room).filter(Room.status == status).all()
+
+    def get_not_in_maintenance(self) -> list[Room]:
+        """Retornar habitaciones cuyo estado no sea 'mantenimiento'."""
+        return (
+            self.db.query(Room)
+            .filter(Room.status != RoomStatus.MANTENIMIENTO)
+            .all()
+        )
+
     def update(self, room: Room) -> Room:
         """Persistir cambios en una habitación existente."""
         self.db.flush()
