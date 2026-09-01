@@ -1,0 +1,110 @@
+/* Layout administrativo: header, sidebar y contenido */
+.admin-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.admin-layout__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-height);
+  padding: 0 var(--space-lg);
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.header__title {
+  font-weight: 700;
+  font-size: 1.125rem;
+}
+
+.admin-layout__body {
+  display: flex;
+  flex: 1;
+}
+
+.admin-layout__sidebar {
+  width: var(--sidebar-width);
+  padding: var(--space-md);
+  background: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+}
+
+.admin-layout__content {
+  flex: 1;
+  padding: var(--space-lg);
+}
+
+.sidebar__item {
+  margin-bottom: var(--space-xs);
+}
+
+.sidebar__link {
+  display: block;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius);
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.sidebar__link:hover {
+  background: var(--color-bg);
+}
+
+.sidebar__link--active {
+  background: var(--color-primary);
+  color: var(--color-primary-contrast);
+}
+
+/* Componentes */
+.loading {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.error-message {
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius);
+  background: #fef2f2;
+  color: var(--color-error);
+}
+
+.connectivity-badge {
+  display: inline-block;
+  margin-top: var(--space-md);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+}
+
+.connectivity-badge--ok {
+  background: #ecfdf5;
+  color: var(--color-ok);
+}
+
+.connectivity-badge--fail {
+  background: #fef2f2;
+  color: var(--color-error);
+}
+
+/* Degradación en pantallas reducidas */
+@media (max-width: 768px) {
+  .admin-layout__body {
+    flex-direction: column;
+  }
+
+  .admin-layout__sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .sidebar__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+}
